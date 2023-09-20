@@ -1,13 +1,13 @@
-﻿using Codecool.BruteForce.Users.Model;
+using Codecool.BruteForce.Users.Model;
 using Microsoft.Data.Sqlite;
 
 namespace Codecool.BruteForce.Users.Repository;
 
-public class UserRepository : IUserRepository
+public class CrackedUsersRepo : ICrackedUsersRepo
 {
     private readonly string _dbFilePath;
 
-    public UserRepository(string dbFilePath)
+    public CrackedUsersRepo(string dbFilePath)
     {
         _dbFilePath = dbFilePath;
     }
@@ -37,31 +37,31 @@ public class UserRepository : IUserRepository
 
     public void Add(string userName, string password)
     {
-        string addStatement = $"INSERT INTO users(user_name, password) VALUES ('{userName}', '{password}')";
+        string addStatement = $"INSERT INTO CrackedUsers(user_name, password) VALUES ('{userName}', '{password}')";
         ExecuteNonQuery(addStatement);
     }
 
     public void Update(int id, string userName, string password)
     {
-        string updateStatement = $"UPDATE users SET user_name={userName},password={password} WHERE id={id}";
+        string updateStatement = $"UPDATE CrackedUsers SET user_name={userName},password={password} WHERE id={id}";
         ExecuteNonQuery(updateStatement);
     }
 
     public void Delete(int id)
     {
-        string deleteStatement = $"DELETE FROM users WHERE id={id}";
+        string deleteStatement = $"DELETE FROM CrackedUsers WHERE id={id}";
         ExecuteNonQuery(deleteStatement);
     }
 
     public void DeleteAll()
     {
-        string deleteAllStatement = "DELETE FROM users";
+        string deleteAllStatement = "DELETE FROM CrackedUsers";
         ExecuteNonQuery(deleteAllStatement);
     }
 
     public User Get(int id)
     {
-        var query = @$"SELECT * FROM users WHERE id = {id}";
+        var query = @$"SELECT * FROM CrackedUsers WHERE id = {id}";
         using var connection = GetPhysicalDbConnection();
         using var command = GetCommand(query, connection);
 
@@ -72,7 +72,7 @@ public class UserRepository : IUserRepository
     public IEnumerable<User> GetAll()
     {
         List<User> users = new();
-        string getAllStatement = "SELECT * FROM users";
+        string getAllStatement = "SELECT * FROM CrackedUsers";
         using var connection = GetPhysicalDbConnection();
         using var command = GetCommand(getAllStatement, connection);
 

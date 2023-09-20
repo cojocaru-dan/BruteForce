@@ -14,16 +14,25 @@ public class PasswordGenerator : IPasswordGenerator
 
     public string Generate(int length)
     {
-        return null;
+        string newPassword = "";
+
+        for (int i = 0; i < length; i++)
+        {
+            AsciiTableRange randomAsciiTable = GetRandomCharacterSet();
+            char randomCharacter = GetRandomCharacter(randomAsciiTable);
+            newPassword += randomCharacter;
+        }
+
+        return newPassword;
     }
 
     private AsciiTableRange GetRandomCharacterSet()
     {
-        return null;
+        return _characterSets[Random.Next(_characterSets.Length)];
     }
 
     private static char GetRandomCharacter(AsciiTableRange characterSet)
     {
-        return (char)1;
+        return (char) Random.Next(characterSet.Start, characterSet.End + 1);
     }
 }
